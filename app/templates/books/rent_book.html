@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rent Book</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+
+    <!-- Navbar -->
+    <nav class="bg-gray-600 p-4 text-white">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="{{ url_for('index') }}" class="text-2xl font-bold">Book Store</a>
+            <div class="flex items-center space-x-4">
+                <a href="{{ url_for('buyer_home') }}" class="hover:underline">View Books</a>
+                {% if session.get('buyer_id') %}
+                    <a href="{{ url_for('view_buyer_orders') }}" class="hover:underline">Orders</a>
+                    <a href="{{ url_for('logout') }}" class="hover:underline">Logout</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <!-- Rent Book Section -->
+    <section class="container mx-auto mt-8">
+        <div class="bg-white p-8 rounded-lg shadow-lg">
+            <h1 class="text-3xl font-bold mb-4">Rent Book: {{ book.title }}</h1>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <!-- Book Image -->
+                <div>
+                    <img src="{{ book.image_url }}" alt="{{ book.title }}" class="w-full h-64 object-cover rounded-lg">
+                </div>
+
+                <!-- Book Details and Rent Form -->
+                <div>
+                    <h2 class="text-2xl font-semibold">{{ book.author }}</h2>
+                    <p class="text-gray-600 mt-2">{{ book.description }}</p>
+                    <p class="text-gray-700 mt-2"><strong>Weekly Price:</strong> ${{ book.weekly_price }}</p>
+                    <p class="text-gray-700 mt-2"><strong>Monthly Price:</strong> ${{ book.monthly_price }}</p>
+                    <p class="text-gray-500 mt-2"><strong>Condition:</strong> {{ book.condition }}</p>
+                    <p class="text-gray-500 mt-2"><strong>Availability:</strong> {{ book.availability }}</p>
+
+                    <form action="{{ url_for('rent_book', book_id=book._id) }}" method="POST" class="mt-4">
+                        <button type="submit" class="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-lg">Rent Book</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+</body>
+</html>
