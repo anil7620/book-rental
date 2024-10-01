@@ -135,6 +135,11 @@ def delete_book(book_id):
     return redirect(url_for('view_books'))
 
 
+@book.route('/admin_view_books')
+def admin_view_books():
+    books = Book.get_all()
+    return render_template('books/admin_view_books.html', books=books)
+
 
 
 @book.route('/view_books')

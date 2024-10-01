@@ -12,7 +12,7 @@ class Payment:
 
 
     @classmethod
-    def save(cls, data):
+    def create(cls, data):
         try:
             cls.collection.insert_one(data)
             return True

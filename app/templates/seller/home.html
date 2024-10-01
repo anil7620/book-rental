@@ -6,30 +6,13 @@
     <title>Seller Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body class="bg-gray-100 h-screen flex">
+<body class="bg-gray-100 h-screen flex flex-col">
 
-    <!-- Sidebar -->
-    <aside class="w-64 bg-gray-800 text-white flex flex-col">
-        <div class="p-6">
-            <h1 class="text-2xl font-bold">Seller Dashboard</h1>
-        </div>
-        <nav class="flex-1 px-4">
-            <ul class="space-y-4">
-                <li>
-                    <a href="{{url_for('add_book')}}" class="block py-2 px-4 bg-gray-700 rounded hover:bg-gray-600">Add Book</a>
-                </li>
-                <li>
-                    <a href="#view-orders" class="block py-2 px-4 bg-gray-700 rounded hover:bg-gray-600">View Orders</a>
-                </li>
-                <li>
-                    <a href="#rental-history" class="block py-2 px-4 bg-gray-700 rounded hover:bg-gray-600">View Rental History</a>
-                </li>
-                <li>
-                    <a href="{{ url_for('seller_logout') }}" class="block py-2 px-4 bg-red-600 rounded hover:bg-red-500">Logout</a>
-                </li>
-            </ul>
-        </nav>
-    </aside>
+    <!-- Header with Logout -->
+    <header class="w-full bg-white shadow p-4 flex justify-between items-center">
+        <h1 class="text-2xl font-bold">Seller Dashboard</h1>
+        <a href="{{ url_for('seller_logout') }}" class="bg-red-600 text-white py-2 px-4 rounded hover:bg-red-500">Logout</a>
+    </header>
 
     <!-- Main Content -->
     <div class="flex-1 p-6">
@@ -41,7 +24,7 @@
 
         <!-- Dashboard Cards -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- Add Book -->
+            <!-- View Books -->
             <div id="add-book" class="bg-white p-6 rounded-lg shadow-lg">
                 <h2 class="text-xl font-bold mb-4">View Books</h2>
                 <p class="text-gray-600">Add new books to your inventory.</p>
@@ -52,45 +35,15 @@
             <div id="view-orders" class="bg-white p-6 rounded-lg shadow-lg">
                 <h2 class="text-xl font-bold mb-4">Orders</h2>
                 <p class="text-gray-600">Manage all customer orders.</p>
-                <a href="{{ url_for('view_orders') }}" class="text-blue-600 hover:underline mt-4 block">View orders</a>
+                <a href="{{ url_for('seller_view_orders') }}" class="text-blue-600 hover:underline mt-4 block">View orders</a>
             </div>
 
             <!-- View Rental History -->
-            <div id="rental-history" class="bg-white p-6 rounded-lg shadow-lg">
-                <h2 class="text-xl font-bold mb-4">Rental History</h2>
-                <p class="text-gray-600">Track the history of book rentals.</p>
-                <a href="{{ url_for('view_rental_history') }}" class="text-blue-600 hover:underline mt-4 block">View rental history</a>
-            </div>
+            
         </div>
 
         <!-- Orders Table Section -->
-        <div class="mt-12">
-            <h2 class="text-2xl font-bold mb-6">Orders Overview</h2>
-            <table class="w-full bg-white shadow-lg rounded-lg">
-                <thead>
-                    <tr class="bg-gray-200 text-left">
-                        <th class="py-2 px-4">Order ID</th>
-                        <th class="py-2 px-4">Buyer Name</th>
-                        <th class="py-2 px-4">Total Amount</th>
-                        <th class="py-2 px-4">Status</th>
-                        <th class="py-2 px-4">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for order in orders %}
-                    <tr class="border-t">
-                        <td class="py-2 px-4">{{ order.order_id }}</td>
-                        <td class="py-2 px-4">{{ order.buyer_name }}</td>
-                        <td class="py-2 px-4">${{ order.total_amount }}</td>
-                        <td class="py-2 px-4">{{ order.status }}</td>
-                        <td class="py-2 px-4">
-                            <a href="{{ url_for('view_order', order_id=order.order_id) }}" class="text-blue-600 hover:underline">View</a>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+
     </div>
 
 </body>

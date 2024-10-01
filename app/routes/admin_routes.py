@@ -113,7 +113,8 @@ def admin_view_buyers():
 
     buyers = Buyer.get_all()  # Replace with the actual method call to get all buyers
     buyers = list(buyers)
-    return render_template('admin/view_buyers.html', buyers=buyers)
+    print(buyers)
+    return render_template('admin/admin_view_buyers.html', buyers=buyers)
 
 
 
@@ -131,9 +132,9 @@ def admin_view_payments():
 
 
 
-@book.route('/view_orders')
+@book.route('/seller_view_orders')
 @login_required
-def view_orders():
+def seller_view_orders():
     orders = Order.get_all()  # Assuming this method fetches all orders
 
     # Get book names and buyer names for each order
@@ -141,9 +142,10 @@ def view_orders():
         product_details = []
 
         buyer = Buyer.get_by_id(order['buyer_id'])
-        order['buyer_name'] = f"{buyer['first_name']}" if buyer else "Unknown Buyer"
-
-    return render_template('orders/view_orders.html', orders=orders)
+        order['buyer_name'] = f"{buyer['name']}" if buyer else "Unknown Buyer"
+    orders = list(orders)
+    print(orders)
+    return render_template('orders/seller_view_orders.html', orders=orders)
 
 
 @book.route('/admin_view_orders', methods=['GET', 'POST'])
@@ -167,16 +169,17 @@ def admin_view_orders():
         product_details = []
         order['product_details'] = product_details
         buyer = Buyer.get_by_id(order['buyer_id'])
-        order['buyer_name'] = f"{buyer['first_name']}" if buyer else "Unknown Buyer"
-    return render_template('admin/view_orders.html', orders=orders)
+        order['buyer_name'] = f"{buyer['name']}" if buyer else "Unknown Buyer"
+    return render_template('admin/admin_view_orders.html', orders=orders)
 
 
-@book.route('/view_sellers', methods=['GET'])
+@book.route('/admin_view_sellers', methods=['GET'])
 @login_required
-def view_sellers():
+def admin_view_sellers():
     sellers = Seller.get_all()
     sellers = list(sellers)
-    return render_template('admin/view_sellers.html', sellers=sellers)
+    print(sellers)
+    return render_template('admin/admin_view_sellers.html', sellers=sellers)
 
 @book.route('/admin_logout')
 @login_required

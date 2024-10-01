@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Buyers</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto p-6">
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-3xl font-bold">All Buyers</h1>
+        </div>
+
+        <!-- Buyers Table -->
+        <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+            <table class="min-w-full bg-white">
+                <thead>
+                    <tr class="bg-gray-800 text-white text-left">
+                        <th class="w-1/4 py-3 px-4">Name</th>
+                        <th class="w-1/4 py-3 px-4">Email</th>
+                        <th class="w-1/4 py-3 px-4">Phone</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for buyer in buyers %}
+                    <tr class="border-t">
+                        <td class="py-3 px-4">{{ buyer.name }}</td>
+                        <td class="py-3 px-4">{{ buyer.email }}</td>
+                        <td class="py-3 px-4">{{ buyer.phone }}</td>
+                       
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="4" class="py-4 px-4 text-center text-gray-500">No buyers found</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="mt-6">
+            <a href="{{ url_for('admin_home') }}" class="text-gray-600 hover:underline">Back to Dashboard</a>
+        </div>
+    </div>
+</body>
+</html>

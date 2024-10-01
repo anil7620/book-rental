@@ -19,7 +19,6 @@ class Book:
     def get_by_id(cls, id):
         product_id = ObjectId(id)
         book = cls.collection.find_one({"_id": product_id})
-        
         return book
 
     @classmethod

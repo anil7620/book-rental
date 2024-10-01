@@ -21,7 +21,7 @@ class Order:
         return cls.collection.update_one({"_id": ObjectId(order_id)}, {"$set": data})
     
     @classmethod
-    def save(cls, data):
+    def create(cls, data):
         return cls.collection.insert_one(data)
     
     # get all pending stockout out for delivery orders
@@ -61,3 +61,8 @@ class Order:
     @classmethod
     def count(cls):
         return cls.collection.count_documents({})
+
+    @classmethod
+    def get_order_by_id(cls, order_id):
+        # Ensure you're querying by the MongoDB ObjectId
+        return cls.collection.find_one({"_id": order_id})

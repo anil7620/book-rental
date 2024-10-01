@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin View Orders</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+
+    <!-- Navbar -->
+    <nav class="bg-gray-600 p-4 text-white">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="{{ url_for('admin_home') }}" class="text-2xl font-bold">Admin Dashboard</a>
+            <div class="flex items-center space-x-4">
+                <a href="{{ url_for('admin_home') }}" class="hover:underline">Dashboard</a>
+                <a href="{{ url_for('admin_view_orders') }}" class="hover:underline">Orders</a>
+                <a href="{{ url_for('logout') }}" class="hover:underline">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Orders Section -->
+    <section class="container mx-auto mt-8">
+        <h1 class="text-3xl font-bold text-center mb-6">Manage Orders</h1>
+
+        {% if orders %}
+            <div class="bg-white p-8 rounded-lg shadow-lg">
+                <table class="table-auto w-full text-left">
+                    <thead>
+                        <tr>
+                            <th class="px-4 py-2">Order ID</th>
+                            <th class="px-4 py-2">Book Title</th>
+                            <th class="px-4 py-2">Buyer Name</th>
+                            <th class="px-4 py-2">Price</th>
+                            <th class="px-4 py-2">Rental Duration</th>
+                            <th class="px-4 py-2">Status</th>
+                            <th class="px-4 py-2">Order Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order in orders %}
+                        <tr class="border-t">
+                            <td class="px-4 py-2">{{ order._id }}</td>
+                            <td class="px-4 py-2">{{ order.book_id }}</td>
+                            <td class="px-4 py-2">{{ order.buyer_name }}</td>
+                            <td class="px-4 py-2">${{ order.price }}</td>
+                            <td class="px-4 py-2">{{ order.duration | capitalize }}</td>
+                            <td class="px-4 py-2">
+                                <span class="{% if order.status == 'completed' %} text-green-500 {% else %} text-yellow-500 {% endif %} font-bold">
+                                    {{ order.status | capitalize }}
+                                </span>
+                            </td>
+                            <td class="px-4 py-2">{{ order.created_at.strftime('%B %d, %Y') }}</td>
+                            <td class="px-4 py-2">
+                                <!-- Update Status Form -->
+                                <form action="{{ url_for('admin_view_orders') }}" method="POST">
+                                    <input type="hidden" name="order_id" value="{{ order._id }}">
+                                    <div class="flex space-x-2 items-center">
+                                        <select name="status" class="border px-2 py-1 rounded-lg">
+                                            <option value="pending" {% if order.status == 'pending' %}selected{% endif %}>Pending</option>
+                                            <option value="completed" {% if order.status == 'completed' %}selected{% endif %}>Completed</option>
+                                            <option value="canceled" {% if order.status == 'canceled' %}selected{% endif %}>Canceled</option>
+                                            <option value="out_for_delivery" {% if order.status == 'out_for_delivery' %}selected{% endif %}>Out for Delivery</option>
+                                        </select>
+                                        <button type="submit" class="bg-blue-500 text-white px-4 py-1 rounded-lg hover:bg-blue-600">Update</button>
+                                    </div>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p class="text-center text-gray-600 mt-8">No orders available.</p>
+        {% endif %}
+    </section>
+
+</body>
+</html>

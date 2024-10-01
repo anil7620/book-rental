@@ -6,109 +6,60 @@
     <title>Admin Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body class="bg-gray-100 h-screen flex">
-
-    <!-- Sidebar -->
-    <aside class="w-64 bg-gray-800 text-white flex flex-col">
-        <div class="p-6">
-            <h1 class="text-2xl font-bold">Admin Dashboard</h1>
-        </div>
-        <nav class="flex-1 px-4">
-            <ul class="space-y-4">
-                <li>
-                    <a href="#books" class="block py-2 px-4 bg-gray-700 rounded hover:bg-gray-600">All Books</a>
-                </li>
-                <li>
-                    <a href="#buyers" class="block py-2 px-4 bg-gray-700 rounded hover:bg-gray-600">All Buyers</a>
-                </li>
-                <li>
-                    <a href="#sellers" class="block py-2 px-4 bg-gray-700 rounded hover:bg-gray-600">All Sellers</a>
-                </li>
-                <li>
-                    <a href="#orders" class="block py-2 px-4 bg-gray-700 rounded hover:bg-gray-600">All Orders</a>
-                </li>
-                <li>
-                    <a href="{{ url_for('admin_logout') }}" class="block py-2 px-4 bg-red-600 rounded hover:bg-red-500">Logout</a>
-                </li>
-            </ul>
-        </nav>
-    </aside>
+<body class="bg-gray-100 h-screen">
 
     <!-- Main Content -->
-    <div class="flex-1 p-6">
-        <!-- Dashboard Header -->
-        <div class="mb-8">
-            <h1 class="text-3xl font-bold">Welcome, Admin</h1>
-            <p class="text-gray-700">Manage all your store activities from here.</p>
-        </div>
+    <div class="flex flex-col h-full">
+        
+        <!-- Top Navigation Bar -->
+        <header class="w-full bg-white shadow p-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold">Admin Dashboard</h1>
+            <a href="{{ url_for('admin_logout') }}" class="bg-red-600 text-white py-2 px-4 rounded hover:bg-red-500">Logout</a>
+        </header>
 
-        <!-- Dashboard Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <!-- Books -->
-          <!-- Books -->
-<div id="books" class="bg-white p-6 rounded-lg shadow-lg">
-    <h2 class="text-xl font-bold mb-4">All Books</h2>
-    <p class="text-4xl font-bold">{{ books_count }}</p>
-    <p class="text-gray-600">Books in store</p>
-    <a href="{{ url_for('view_books') }}" class="text-blue-600 hover:underline mt-4 block">View all books</a>
-</div>
+        <!-- Dashboard Content -->
+        <main class="flex-1 p-6">
+            <!-- Dashboard Header -->
+            <div class="mb-8">
+                <h1 class="text-3xl font-bold">Welcome, Admin</h1>
+                <p class="text-gray-700">Manage all your store activities from here.</p>
+            </div>
 
-<!-- Buyers -->
-<div id="buyers" class="bg-white p-6 rounded-lg shadow-lg">
-    <h2 class="text-xl font-bold mb-4">All Buyers</h2>
-    <p class="text-4xl font-bold">{{ buyers_count }}</p>
-    <p class="text-gray-600">Registered buyers</p>
-    <a href="{{ url_for('view_buyers') }}" class="text-blue-600 hover:underline mt-4 block">View all buyers</a>
-</div>
+            <!-- Dashboard Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Books -->
+                <div id="books" class="bg-white p-6 rounded-lg shadow-lg">
+                    <h2 class="text-xl font-bold mb-4">All Books</h2>
+                    <p class="text-4xl font-bold">{{ books_count }}</p>
+                    <p class="text-gray-600">Books in store</p>
+                    <a href="{{ url_for('admin_view_books') }}" class="text-blue-600 hover:underline mt-4 block">View all books</a>
+                </div>
 
-<!-- Sellers -->
-<div id="sellers" class="bg-white p-6 rounded-lg shadow-lg">
-    <h2 class="text-xl font-bold mb-4">All Sellers</h2>
-    <p class="text-4xl font-bold">{{ sellers_count }}</p>
-    <p class="text-gray-600">Active sellers</p>
-    <a href="{{ url_for('view_sellers') }}" class="text-blue-600 hover:underline mt-4 block">View all sellers</a>
-</div>
+                <!-- Buyers -->
+                <div id="buyers" class="bg-white p-6 rounded-lg shadow-lg">
+                    <h2 class="text-xl font-bold mb-4">All Buyers</h2>
+                    <p class="text-4xl font-bold">{{ buyers_count }}</p>
+                    <p class="text-gray-600">Registered buyers</p>
+                    <a href="{{ url_for('admin_view_buyers') }}" class="text-blue-600 hover:underline mt-4 block">View all buyers</a>
+                </div>
 
-<!-- Orders -->
-<div id="orders" class="bg-white p-6 rounded-lg shadow-lg">
-    <h2 class="text-xl font-bold mb-4">All Orders</h2>
-    <p class="text-4xl font-bold">{{ orders_count }}</p>
-    <p class="text-gray-600">Total orders placed</p>
-    <a href="{{ url_for('view_orders') }}" class="text-blue-600 hover:underline mt-4 block">View all orders</a>
-</div>
+                <!-- Sellers -->
+                <div id="sellers" class="bg-white p-6 rounded-lg shadow-lg">
+                    <h2 class="text-xl font-bold mb-4">All Sellers</h2>
+                    <p class="text-4xl font-bold">{{ sellers_count }}</p>
+                    <p class="text-gray-600">Active sellers</p>
+                    <a href="{{ url_for('admin_view_sellers') }}" class="text-blue-600 hover:underline mt-4 block">View all sellers</a>
+                </div>
 
-        </div>
-
-        <!-- Detailed Tables Section -->
-        <div class="mt-12">
-            <!-- Example: Books Table -->
-            <h2 class="text-2xl font-bold mb-6">Books Overview</h2>
-            <table class="w-full bg-white shadow-lg rounded-lg">
-                <thead>
-                    <tr class="bg-gray-200 text-left">
-                        <th class="py-2 px-4">Book Name</th>
-                        <th class="py-2 px-4">Author</th>
-                        <th class="py-2 px-4">Price</th>
-                        <th class="py-2 px-4">Stock</th>
-                        <th class="py-2 px-4">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for book in books %}
-                    <tr class="border-t">
-                        <td class="py-2 px-4">{{ book.book_name }}</td>
-                        <td class="py-2 px-4">{{ book.author }}</td>
-                        <td class="py-2 px-4">${{ book.price }}</td>
-                        <td class="py-2 px-4">{{ book.stock }}</td>
-                        <td class="py-2 px-4">
-                            <a href="{{ url_for('edit_book', book_id=book.id) }}" class="text-blue-600 hover:underline">Edit</a>
-                            <a href="{{ url_for('delete_book', book_id=book.id) }}" class="text-red-600 hover:underline ml-4">Delete</a>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+                <!-- Orders -->
+                <div id="orders" class="bg-white p-6 rounded-lg shadow-lg">
+                    <h2 class="text-xl font-bold mb-4">All Orders</h2>
+                    <p class="text-4xl font-bold">{{ orders_count }}</p>
+                    <p class="text-gray-600">Total orders placed</p>
+                    <a href="{{ url_for('admin_view_orders') }}" class="text-blue-600 hover:underline mt-4 block">View all orders</a>
+                </div>
+            </div>
+        </main>
     </div>
 
 </body>

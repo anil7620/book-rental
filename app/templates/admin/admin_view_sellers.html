@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Sellers</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto p-6">
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-3xl font-bold">All Sellers</h1>
+        </div>
+
+        <!-- Sellers Table -->
+        <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+            <table class="min-w-full bg-white">
+                <thead>
+                    <tr class="bg-gray-800 text-white text-left">
+                        <th class="w-1/4 py-3 px-4">Name</th>
+                        <th class="w-1/4 py-3 px-4">Email</th>
+                        <th class="w-1/4 py-3 px-4">Phone</th>
+                        <th class="w-1/4 py-3 px-4">Created At</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for seller in sellers %}
+                    <tr class="border-t">
+                        <td class="py-3 px-4">{{ seller.name }}</td>
+                        <td class="py-3 px-4">{{ seller.email }}</td>
+                        <td class="py-3 px-4">{{ seller.phone }}</td>
+                        <td class="py-3 px-4">{{ seller.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                        
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="5" class="py-4 px-4 text-center text-gray-500">No sellers found</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="mt-6">
+            <a href="{{ url_for('admin_home') }}" class="text-gray-600 hover:underline">Back to Dashboard</a>
+        </div>
+    </div>
+</body>
+</html>
